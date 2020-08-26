@@ -6,7 +6,6 @@
 package auth
 
 import (
-	"fmt"
 	sshagent "github.com/xanzy/ssh-agent"
 	"io/ioutil"
 	"net"
@@ -93,12 +92,10 @@ func PasswordKey(username string, password string, keyCallBack ssh.HostKeyCallba
 
 // Creates a configuration for a client that authenticates using PuTTY's pageant
 func PuttyAgent(username string, keyCallBack ssh.HostKeyCallback) (ssh.ClientConfig, error) {
-	agentClient, conn, err := sshagent.New()
+	agentClient, _, err := sshagent.New()
 	if err != nil {
 		return ssh.ClientConfig{}, err
 	}
-
-	fmt.Println(conn)
 
 	return ssh.ClientConfig{
 		User: username,
